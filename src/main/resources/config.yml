@@ -1,0 +1,23 @@
+#配置文件版本，勿动！！！
+version: 1
+#如果你不知道数据库对应的配置，那么只需要改host,port,database,user,passwd即可
+#If you don't know the configuration corresponding to the database, you only need to change host, port, database, user, passwd
+Mysql:
+  host: 127.0.0.1
+  port: 3306
+  database: Dreamyhk
+  user: mcyzj
+  passwd: '123456'
+  ssl: false
+  HikariCP: true
+#Redis设置，务必正确填写
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+#服务器在bungee中的名称，务必正确填写
+ServerName: "Lobby"
+#设置命令，必须英文
+command:
+  #主命令名称
+  main: "jiangplayer"
