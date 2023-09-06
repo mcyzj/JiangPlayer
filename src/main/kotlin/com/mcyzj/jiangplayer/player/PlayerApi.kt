@@ -113,4 +113,51 @@ object PlayerApi {
         }
         player.sendPluginMessage(Main.instance, "BungeeCord", byteArray.toByteArray())
     }
+    fun getPlayerData(value: Any): PlayerData? {
+        val server = findPlayer(value.toString())
+        if (server != null) {
+            return try {
+                val uuid = UUID.fromString(value.toString())
+                val name = Main.databaseApi.getPlayerName(uuid) ?: return null
+                PlayerData(
+                    name,
+                    uuid,
+                    true,
+                    server,
+                    Bukkit.getPlayer(uuid)
+                )
+            } catch (_: Exception) {
+                val name = value.toString()
+                val uuid = Main.databaseApi.getPlayerUUID(name) ?: return null
+                PlayerData(
+                    name,
+                    uuid,
+                    true,
+                    server,
+                    Bukkit.getPlayer(uuid)
+                )
+            }
+        }
+        return try {
+            val uuid = UUID.fromString(value.toString())
+            val name = Main.databaseApi.getPlayerName(uuid) ?: return null
+            PlayerData(
+                name,
+                uuid,
+                false,
+                null,
+                null
+            )
+        } catch (_: Exception) {
+            val name = value.toString()
+            val uuid = Main.databaseApi.getPlayerUUID(name) ?: return null
+            PlayerData(
+                name,
+                uuid,
+                false,
+                null,
+                null
+            )
+        }
+    }
 }
